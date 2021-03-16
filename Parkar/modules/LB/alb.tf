@@ -4,7 +4,7 @@ resource "aws_lb" "non-prod-lb" {
   internal           = false
   subnets            = var.vpc.public_subnets
   tags = {
-    "env"       = "non-prod"
+    "env" = "non-prod"
   }
   security_groups = [aws_security_group.lb.id]
 }
@@ -26,7 +26,7 @@ resource "aws_security_group" "lb" {
   }
 
   tags = {
-    "env"       = "non-prod-sg"
+    "env" = "non-prod-sg"
   }
 }
 

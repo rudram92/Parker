@@ -1,15 +1,15 @@
-variable "sgname"{
+variable "sgname" {
 
 }
-variable "vpc_id "{
- type=string   
+variable "vpc_id " {
+  type = string
 }
-variable "cidr_blocks"{
-    type=string
+variable "cidr_blocks" {
+  type = string
 }
-variable "sg_ingress"{
-    
+variable "sg_ingress" {
+
 }
-variable "sg_egress"{
-    
+variable "sg_egress" {
+
 }
