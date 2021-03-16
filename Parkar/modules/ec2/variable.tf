@@ -16,6 +16,9 @@ variable "root_volume_type" {
 variable "root_volume_size" {
 
 }
+variable "encrypted"{
+    
+}
 variable "Name" {
 
 }

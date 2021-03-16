@@ -52,5 +52,13 @@ module "ec2_creation" {
   root_volume_size       = ""
   tags                   = ""
   disable_api_termination = ""
-  
+  volume_size            = [""]
+  volume_type            = [""] 
+  encrypted              = ""
+  devicename             = [""]
+
+}
+
+tags ={
+  Name=""
 }

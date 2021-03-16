@@ -19,15 +19,16 @@ resource "aws_instance" "ec2" {
 }
 
 resource "aws_ebs_volume" "volumecreation" {
-  count= var.ec2_count
-  size = var.volume_size
-  type = var.volume_type
-  encrypted = var.encrpted
+  count= var.ec2["volume_size"] == [""] ? 0 : length(var.ec2["volume_size"])
+  size = element(var.ec2["volume_size"], count.index)
+  type = element(var.ec2["volume_type"],count.index)
+  encrypted = var.encrypted
   tags = {
     Name = var.name
   }
 }
 resource "aws_volume_attachment" "voumeattach"{
+  count       = var.ec2["volume_size"] == [""] ? 0 : length(var.ec2["volume_size"])
   device_name = element(var.ec2["devicename"], count.index)
   volume_id   = element(aws_ebs_volume.volumecreation.*.id, count.index) 
   instance_id = aws_instance.ec2.id
