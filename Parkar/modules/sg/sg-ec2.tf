@@ -1,38 +1,28 @@
-resource "aws_security_group" "vm-sg" {
-  name        = "Non-Prod-SG"
+resource "aws_security_group" "vm_sg" {
+  name        = var.sgname
   description = "Allow inbound traffic"
   vpc_id      = var.vpc.vpc_id
+}
+resource "aws_security_group_rule" "sg_ingress" {
+  type              = "ingress"
+  count             = length(var.sg_ingress["cidrblocks"])
+  from_port         = element(var.sg_ingress["fromport"], count.index)
+  to_port           = element(var.sg_ingress["toport"], count.index)
+  protocol          = element(var.sg_ingress["protocol"], count.index)
+  cidr_blocks       = [element(var.sg_ingress["cidrblocks"], count.index)]
+  security_group_id = aws_security_group.vm_sg.id
+}
 
-  ingress {
-    description = "SSH from VPC"
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = var.cidr_blocks
-  }
-    ingress {
-    from_port   = "80"
-    to_port     = "80"
-    protocol    = "TCP"
-    description = "open http for all"
-    cidr_blocks = var.cidr_blocks
-  }
-  ingress {
-    from_port   = "443"
-    to_port     = "443"
-    protocol    = "TCP"
-    description = "open https for all"
-    cidr_blocks = var.cidr_blocks
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+resource "aws_security_group_rule" "sg_egress" {
+  type              = "egress"
+  count             = length(var.sg_egress["cidrblocks"])
+  from_port         = element(var.sg_egress["fromport"], count.index)
+  to_port           = element(var.sg_egress["toport"], count.index)
+  protocol          = element(var.sg_egress["protocol"], count.index)
+  cidr_blocks       = [element(var.sg_egress["cidrblocks"], count.index)]
+  security_group_id = aws_security_group.vm_sg.id
+}
 
   tags = {
-    Name = "Non-Prod-SG"
+    Name = var.name_sg
   }
-}
