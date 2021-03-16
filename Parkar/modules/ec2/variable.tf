@@ -10,3 +10,10 @@
   variable "security_group_ids"{
       type=string
   }
+  variable "volume_type"{
+
+  }
+  variable "volume_size"{
+
+  }
+  variable "Name"{}

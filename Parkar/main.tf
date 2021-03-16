@@ -27,4 +27,7 @@ module "ec2_creation" {
   availability_zone = var.availability_zone
   vpc_security_group_ids = var.aws_security_group
   key_name = "${module.key_pair.id}"
+  volume_type=""
+  volume_size=""
+  tags=
 }

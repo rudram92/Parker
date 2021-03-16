@@ -8,13 +8,13 @@ resource "aws_instance" "Non-prod" {
   disable_api_termination = true
   key_name          = var.key_name
   root_block_device {
-  volume_type = "gp2"
-  volume_size = "50"
+  volume_type = var.volume_type
+  volume_size = var.volume_size
   delete_on_termination = true
   encrypted             = true
   }
   
   tags = {
-    Name = "non-prod-vm"
+    Name = var.name
   }
 }
