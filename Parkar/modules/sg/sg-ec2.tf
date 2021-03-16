@@ -22,7 +22,3 @@ resource "aws_security_group_rule" "sg_egress" {
   cidr_blocks       = [element(var.sg_egress["cidrblocks"], count.index)]
   security_group_id = aws_security_group.vm_sg.id
 }
-
-  tags = {
-    Name = var.name_sg
-  }
